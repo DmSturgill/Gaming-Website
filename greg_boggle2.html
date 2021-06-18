@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+    
+  
+    
+    
+    <title>Greg's Gambits</title>
+    <link href="greg.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript">
+    function words(x)
+{
+    switch (x)
+    {
+        case 1:
+            var word = new Array("balte","table","hat","tab","belt","lab","eat","tea","ate","tale","bale","let","bet","teal","late","beat");
+            break;
+        case 2:
+            var word = new Array("atwre","water","wet","wear","tear","war","ret","rate","eat","ate","tea","awe","raw","rat","wart","art","tar");
+            break;
+        case 3:
+            var word = new Array("dclaen","can","cane","and","clan","lane","lean","lend","land","den","dean","dance","lance","clean","deal","ale","dale","candle","clad");
+            break;
+        case 4:
+            var word = new Array("aepinlar","air","airplane","plane","plan","lane","lean","pane","ear","near","nap","nape","lair","pen","pan","ape","leap","ale","peal","nap","rap","par", "pare", "pale", "are", "rail", "ail", "pail", "nail", "air", "pair", "ran", "pin", "pine", "line", "nip", "rip", "ripe", "lip", "earn", "learn", "ire");
+            break;
+        case 5:
+            var word = new Array("redykboa","keyboard","key","board","bored","bore","bark","dark","dork","oar","boar","ark","dare","bare","are","red","rod","road","bode","rode","ode","bread", "read", "bead", "bred", "break", "drey", "day", "boy", "broke", "rake", "bake", "ear", "dear", "bear", "dye", "dyer", "doer", "oak", "boa", "doe", "okay","dab", "bade", "ade", "drake", "bard", "yard", "year", "beak", "beard", "bad", "bed", "bay");
+            break;
+    }
+    return word;
+}    
+        
+    function boggle()
+{
+    //Clear form fields
+    document.getElementById("letters").innerHTML = "<br />";
+    document.getElementById("entrie1").innerHTML = "<br />";
+    document.getElementById("entrie2").innerHTML = "<br />";
+    document.getElementById("winner").innerHTML = "<br />";
+
+    var play="";
+    var score1 = 0;
+    var score2 = 0;
+    var flag = 0;
+    var num = Math.floor(Math.random() * 5) + 1;    //variable num holds random number 1-5 for the switch case statement in the words function
+    
+    
+    compWords = new Array();    //Arrays to hold entered words and scrambled words
+    notAword1 = new Array();
+    notAword2 = new Array();
+    playWords1 = new Array();
+    playWords2 = new Array();
+    compWords = words(num); //array that calls word function passing the num variable which holds randomly generated value to grab random words
+    yourWord = compWords[0];
+    document.getElementById("letters").innerHTML = yourWord;
+    
+    //get player inputs
+    while (play != "Q" && play != "q") {
+        //Player 1 prompt
+        play = prompt("Player 1: Enter a word or enter Q when done");
+        playWords1.push(play);
+        if (play != "Q" && play != "q") {
+            document.getElementById("entrie1").innerHTML = playWords1.toString();
+        }
+    if (play != "Q" && play != "q")
+        //Player 2 prompt
+        play = prompt("Player 2: Enter a word or enter Q when done");
+        playWords2.push(play);
+        if(play != "Q" && play != "q") {
+            document.getElementById("entrie2").innerHTML = playWords2.toString();
+        }
+    }
+    //check for the winner
+    var complgth = compWords.length;
+    var playlgth1 = (playWords1.length - 1);
+    var playlgth2 = (playWords2.length - 1);
+    for (var i = 0; i < playlgth1; i++)
+    {
+        flag = 0;
+        for(var k = 0; k < complgth; k++)
+        {
+            if(playWords1[i] == compWords[k])
+            {
+                score1++;
+                flag = 1;
+            }
+        }
+        if (flag == 0)
+            notAword1.push(playWords1[i]);
+    }
+    for (var i = 0; i < playlgth2; i++)
+    {
+        flag = 0;
+        for(var k = 0; k < complgth; k++)
+        {
+            if(playWords2[i] == compWords[k])
+            {
+                score2++;
+                flag = 1;
+            }
+        }
+        if (flag == 0)
+            notAword2.push(playWords2[i]);
+    }
+    if (score1 > score2)
+    document.getElementById("winner").innerHTML = "Player 1 is the winner with " + score1 + " correct word(s).";        //display winner using if statement to compare scores
+    if (score1 < score2)
+    document.getElementById("winner").innerHTML = "Player 2 is the winner with " + score2 + "  correct word(s).";
+    if (score1 == score2)
+    document.getElementById("winner").innerHTML = "Tie! Player 1 & Player 2 have the same score of " + score1 + " correct word(s).";
+}
+    </script>
+</head>
+<body>
+<div id="container">
+
+    <img src="images/superhero.jpg" class="floatleft" width="120" height="120">
+    <h1 id="logo">Greg's Boggle</h1>
+    <div id="nav">
+  <p><a href="index.html">Home</a>
+  <a href="about_greg.html">About Greg</a>
+  <a href="play_games.html">Play a Game</a>
+  <a href="signin.html">Sign In</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="about_you.html">Tell Greg About You</a></p>
+</div>
+    <div id="content">
+        <p>The object of the game is to create as many words as you can,
+            in a given time limit, from the letters shown below. When you
+            are ready to begin, click the button.</p>
+        <p><input type="button" value="Begin the Game" onclick="boggle()"></p>
+        
+       <table width="90%" align="center">
+            <tbody><tr>
+                <td colspan="2" align="right"><strong style="font-size: 2em;">Letters you can use:<br><div id="letters">aepinlar</div></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Player 1's Words: <br><div id="entrie1"></div></strong></td>
+                <td><strong>Player 2's Words: <br><div id="entrie2"><br></div></strong></td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>Winner: <br><div id="winner">Tie! Player 1 &amp; Player 2 have the same score of 0 correct word(s).</div></strong></td>
+            </tr>
+
+
+        </tbody></table>
+    
+    </div>
+    <div id="footer">Copyright © 2020 Greg's Gambits<br>
+        <a href="mailto:sturg1337@gmail.com">sturg1337@gmail.com</a></div>
+</div>
+
+</body></html>
