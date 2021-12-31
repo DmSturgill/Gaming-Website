@@ -1,5 +1,5 @@
 # Gaming-Website
-Website that uses JavaScript for several small games
+Website that uses Embedded JavaScript for several small games, made in School Project. Improvents made to UI were personal changes. 
 
 Branch - gamingSiteV2 is most up to date at this time - 12/30/2021
 
